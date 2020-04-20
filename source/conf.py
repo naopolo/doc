@@ -17,9 +17,9 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'batch_cloud'
+project = 'クラウドバッチ処理パターン'
 copyright = '2020, org.nao'
-author = 'org.nao'
+author = 'Nao'
 
 # The short X.Y version
 version = '0.1-SNAPSHOT'

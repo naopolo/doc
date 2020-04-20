@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>AWSにおけるBatch関連のサービス &mdash; batch_cloud 0.1-SNAPSHOT documentation</title>
+  <title>AWSにおけるBatch関連のサービス &mdash; クラウドバッチ処理パターン 0.1-SNAPSHOT documentation</title>
   
 
   
@@ -49,7 +49,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> batch_cloud
+            <a href="index.html" class="icon icon-home"> クラウドバッチ処理パターン
           
 
           
@@ -86,10 +86,19 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">AWSにおけるBatch関連のサービス</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#aws-batch">AWS Batch</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#lamda-step-functions">Lamda(Step Functions)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#ecs">ECS（スケジュール起動）</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id1">参考情報</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#aws-batch">AWS Batch</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">AWS Batchの利用が適しているパタ－ン</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">AWS Batchを利用できる条件</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#aws-lambda">AWS Lambda</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#lambda">Lambdaの利用が適しているパターン</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lambdaap">Lambdaで動作するAP</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#ecs-task">ECS Task</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#aws-step-functions">AWS Step Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">参考情報</a></li>
 </ul>
 </li>
 </ul>
@@ -106,7 +115,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">batch_cloud</a>
+          <a href="index.html">クラウドバッチ処理パターン</a>
         
       </nav>
 
@@ -160,19 +169,94 @@
 <h1>AWSにおけるBatch関連のサービス<a class="headerlink" href="#awsbatch" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="aws-batch">
 <h2>AWS Batch<a class="headerlink" href="#aws-batch" title="Permalink to this headline">¶</a></h2>
-<p>AWSのBatchサービス</p>
-</div>
-<div class="section" id="lamda-step-functions">
-<h2>Lamda(Step Functions)<a class="headerlink" href="#lamda-step-functions" title="Permalink to this headline">¶</a></h2>
-<p>いいいい</p>
-</div>
-<div class="section" id="ecs">
-<h2>ECS（スケジュール起動）<a class="headerlink" href="#ecs" title="Permalink to this headline">¶</a></h2>
-<p>ううう</p>
-</div>
 <div class="section" id="id1">
-<h2>参考情報<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference external" href="https://techblog.timers-inc.com/entry/2019/08/06/aws-batch-lambda-ecs-comparison">https://techblog.timers-inc.com/entry/2019/08/06/aws-batch-lambda-ecs-comparison</a></p>
+<h3>AWS Batchの利用が適しているパタ－ン<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>AWS Batchは以下のうち、 <strong>「大規模計算におけるバッチ処理」</strong> に適している。</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>定型業務におけるバッチ処理</dt><dd><p>夜間バッチのような、あらかじめジョブの起動や順序を定義しておいて、ジョブを実行・管理する。</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>大規模計算におけるバッチ処理</dt><dd><p>大規模科学計算、機械学習、ゲノム分析等のアドホックな計算。</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h3>AWS Batchを利用できる条件<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Dockerコンテナイメージを用意する必要がある。</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="aws-lambda">
+<h2>AWS Lambda<a class="headerlink" href="#aws-lambda" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="lambda">
+<h3>Lambdaの利用が適しているパターン<a class="headerlink" href="#lambda" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><dl class="simple">
+<dt>1つのジョブが数秒など短時間で終わる場合</dt><dd><ul>
+<li><p>実行時間は15分が上限</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="lambdaap">
+<h3>Lambdaで動作するAP<a class="headerlink" href="#lambdaap" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><dl class="simple">
+<dt>SpringBootの導入</dt><dd><ul>
+<li><p><a class="reference external" href="https://qiita.com/_kensh/items/603b16e31e787c856395">https://qiita.com/_kensh/items/603b16e31e787c856395</a></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="ecs-task">
+<h2>ECS Task<a class="headerlink" href="#ecs-task" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="aws-step-functions">
+<h2>AWS Step Functions<a class="headerlink" href="#aws-step-functions" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="id3">
+<h2>参考情報<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><dl class="simple">
+<dt>AWS Batch Black Belt</dt><dd><ul>
+<li><p><a class="reference external" href="https://www.slideshare.net/AmazonWebServicesJapan/20190911-aws-black-belt-online-seminar-aws-batch">https://www.slideshare.net/AmazonWebServicesJapan/20190911-aws-black-belt-online-seminar-aws-batch</a></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>AWS Lambda Black Belt</dt><dd><ul>
+<li><p><a class="reference external" href="https://www.slideshare.net/AmazonWebServicesJapan/20190402-aws-black-belt-online-seminar-lets-dive-deep-into-aws-lambda-part1-part2/">https://www.slideshare.net/AmazonWebServicesJapan/20190402-aws-black-belt-online-seminar-lets-dive-deep-into-aws-lambda-part1-part2/</a></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>AWS Step Functions Black Belt</dt><dd><ul>
+<li><p><a class="reference external" href="https://www.slideshare.net/AmazonWebServicesJapan/20190522-aws-black-belt-online-seminar-aws-step-functions">https://www.slideshare.net/AmazonWebServicesJapan/20190522-aws-black-belt-online-seminar-aws-step-functions</a></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>各サービスの比較</dt><dd><ul>
+<li><p><a class="reference external" href="https://techblog.timers-inc.com/entry/2019/08/06/aws-batch-lambda-ecs-comparison">https://techblog.timers-inc.com/entry/2019/08/06/aws-batch-lambda-ecs-comparison</a></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
 </div>
 </div>
 
