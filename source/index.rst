@@ -13,6 +13,7 @@
    environment
    application
    batch_arch
+   batch_pattern
 
 
 

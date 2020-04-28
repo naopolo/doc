@@ -35,3 +35,6 @@ AWS Batch構築
 * ジョブ定義－リソース要件－コンテナ定義
     * リリースしたいDocker ImageのECR上のパス
         * [ログインID].dkr.ecr.[リージョン].amazonaws.com/batchdemo:latest
+    * ジョブロールの設定
+        * 以下のサイトを参考にAWS Systems Manager パラメータストアへのアクセス権限をもつアクセスポリシーが付与されたロールを設定すること
+            * https://docs.aws.amazon.com/ja_jp/systems-manager/latest/userguide/sysman-paramstore-access.html
