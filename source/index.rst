@@ -11,6 +11,7 @@
    :caption: Contents:
 
    environment
+   application
    batch_arch
 
 

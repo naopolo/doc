@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>クラウドバッチ処理パターンまとめ &mdash; クラウドバッチ処理パターン 0.1-SNAPSHOT documentation</title>
+  <title>構築するアプリケーション(Spring Boot) &mdash; クラウドバッチ処理パターン 0.1-SNAPSHOT documentation</title>
   
 
   
@@ -35,7 +35,8 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="環境構築" href="environment.html" /> 
+    <link rel="next" title="AWSにおけるBatch関連のサービス" href="batch_arch.html" />
+    <link rel="prev" title="環境構築" href="environment.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -49,7 +50,7 @@
           
 
           
-            <a href="#" class="icon icon-home"> クラウドバッチ処理パターン
+            <a href="index.html" class="icon icon-home"> クラウドバッチ処理パターン
           
 
           
@@ -84,9 +85,14 @@
             
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="environment.html">環境構築</a></li>
-<li class="toctree-l1"><a class="reference internal" href="application.html">構築するアプリケーション(Spring Boot)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">構築するアプリケーション(Spring Boot)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#fw">アプリケーションのベースとなるFW</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">アプリケーションの仕様概要</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#spring-batch">Spring Batchのアーキテクチャ</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="batch_arch.html">AWSにおけるBatch関連のサービス</a></li>
 </ul>
 
@@ -102,7 +108,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="#">クラウドバッチ処理パターン</a>
+          <a href="index.html">クラウドバッチ処理パターン</a>
         
       </nav>
 
@@ -131,15 +137,15 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="#">Docs</a> &raquo;</li>
+      <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>クラウドバッチ処理パターンまとめ</li>
+      <li>構築するアプリケーション(Spring Boot)</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/application.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -152,32 +158,80 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="id1">
-<h1>クラウドバッチ処理パターンまとめ<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-<p class="caption"><span class="caption-text">Contents:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="environment.html">環境構築</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="environment.html#docker-image">Docker Image作成</a></li>
-<li class="toctree-l2"><a class="reference internal" href="environment.html#ecr">ECR構築</a></li>
-<li class="toctree-l2"><a class="reference internal" href="environment.html#aws-batch">AWS Batch構築</a></li>
+  <div class="section" id="spring-boot">
+<h1>構築するアプリケーション(Spring Boot)<a class="headerlink" href="#spring-boot" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="fw">
+<h2>アプリケーションのベースとなるFW<a class="headerlink" href="#fw" title="Permalink to this headline">¶</a></h2>
+<p>Spring Boot + Spring Batchで構成する</p>
+</div>
+<div class="section" id="id1">
+<h2>アプリケーションの仕様概要<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><dl class="simple">
+<dt>処理内容</dt><dd><ul>
+<li><p>S3上に保存されたファイルの内容を解析し、DB（RDS）に保存する【TODO】</p></li>
 </ul>
+</dd>
+</dl>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="application.html">構築するアプリケーション(Spring Boot)</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="application.html#fw">アプリケーションのベースとなるFW</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.html#id1">アプリケーションの仕様概要</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.html#spring-batch">Spring Batchのアーキテクチャ</a></li>
+<li><dl class="simple">
+<dt>細かな仕様</dt><dd><ul>
+<li><dl class="simple">
+<dt>DBアクセス</dt><dd><ul>
+<li><p>MyBatisを用いてRDS（PosgtreSQL）にアクセス【TODO】</p></li>
 </ul>
+</dd>
+</dl>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="batch_arch.html">AWSにおけるBatch関連のサービス</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="batch_arch.html#aws-batch">AWS Batch</a></li>
-<li class="toctree-l2"><a class="reference internal" href="batch_arch.html#aws-lambda">AWS Lambda</a></li>
-<li class="toctree-l2"><a class="reference internal" href="batch_arch.html#ecs-task">ECS Task</a></li>
-<li class="toctree-l2"><a class="reference internal" href="batch_arch.html#aws-step-functions">AWS Step Functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="batch_arch.html#id3">参考情報</a></li>
+<li><dl class="simple">
+<dt>ファイルアクセス</dt><dd><ul>
+<li><dl class="simple">
+<dt>S3</dt><dd><ul>
+<li><p>AWS SDKを利用【TODO】</p></li>
 </ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>その他</dt><dd><ul>
+<li><p>Java File API【TODO】</p></li>
+</ul>
+</dd>
+</dl>
 </li>
 </ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>パラメータ管理</dt><dd><ul>
+<li><p>applivcation.ymlとAWS System Manager（パラメータストアの併用）【TODO】</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>マルチスレッド</dt><dd><ul>
+<li><p>taskletモデルとchunkモデルAP作成【TODO】</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>APのリポジトリ</dt><dd><ul>
+<li><p><a class="reference external" href="https://github.com/naopolo/batchdemo">https://github.com/naopolo/batchdemo</a></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="spring-batch">
+<h2>Spring Batchのアーキテクチャ<a class="headerlink" href="#spring-batch" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -189,8 +243,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="environment.html" class="btn btn-neutral float-right" title="環境構築" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="batch_arch.html" class="btn btn-neutral float-right" title="AWSにおけるBatch関連のサービス" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
+      
+        <a href="environment.html" class="btn btn-neutral float-left" title="環境構築" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

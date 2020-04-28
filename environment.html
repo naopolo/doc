@@ -89,6 +89,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">環境構築</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#docker-image">Docker Image作成</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#ecr">ECR構築</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#aws-batch">AWS Batch構築</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="batch_arch.html">AWSにおけるBatch関連のサービス</a></li>
@@ -210,6 +211,25 @@
 <li><dl class="simple">
 <dt>ECRへpush</dt><dd><ul>
 <li><p>docker push [ログインID].dkr.ecr.[リージョン].amazonaws.com/batchdemo:latest</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="aws-batch">
+<h2>AWS Batch構築<a class="headerlink" href="#aws-batch" title="Permalink to this headline">¶</a></h2>
+<p>一通りデフォルトで構築して、以下のみ変更</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>ジョブ定義－リソース要件－コンテナ定義</dt><dd><ul>
+<li><dl class="simple">
+<dt>リリースしたいDocker ImageのECR上のパス</dt><dd><ul>
+<li><p>[ログインID].dkr.ecr.[リージョン].amazonaws.com/batchdemo:latest</p></li>
+</ul>
+</dd>
+</dl>
+</li>
 </ul>
 </dd>
 </dl>

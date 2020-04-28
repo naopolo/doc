@@ -28,3 +28,10 @@ ECR構築
 * ECRへpush
     * docker push [ログインID].dkr.ecr.[リージョン].amazonaws.com/batchdemo:latest
 
+AWS Batch構築
+====
+一通りデフォルトで構築して、以下のみ変更
+
+* ジョブ定義－リソース要件－コンテナ定義
+    * リリースしたいDocker ImageのECR上のパス
+        * [ログインID].dkr.ecr.[リージョン].amazonaws.com/batchdemo:latest
