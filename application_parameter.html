@@ -1,0 +1,283 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="jp" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="jp" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>パラメータ管理 &mdash; クラウドバッチ処理パターン 0.1-SNAPSHOT documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="AWSにおけるBatch関連のサービス" href="batch_arch.html" />
+    <link rel="prev" title="アプリケーションの仕様概要" href="application_gaiyo.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> クラウドバッチ処理パターン
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1-SNAPSHOT
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="environment.html">環境構築</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="application.html">構築するアプリケーション(Spring Boot)</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="application_gaiyo.html">アプリケーションの仕様概要</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">パラメータ管理</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="batch_arch.html">AWSにおけるBatch関連のサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_pattern.html">クラウドバッチ処理パターン</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">クラウドバッチ処理パターン</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="application.html">構築するアプリケーション(Spring Boot)</a> &raquo;</li>
+        
+      <li>パラメータ管理</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/application_parameter.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>パラメータ管理<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<ul>
+<li><dl class="simple">
+<dt>Springによるパラメータ管理</dt><dd><ul class="simple">
+<li><p>application.properties(yml)を用いて、パラメータを別ファイルに切り出し管理することが可能</p></li>
+<li><p>プログラム中では&#64;Valueを用いて参照可能</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>AWS Systems Manager パラメータストアによる管理</dt><dd><ul>
+<li><p>AWSのマネージドサービスによりパラメータを管理し、アプリケーションから参照する</p></li>
+<li><dl>
+<dt>Spring Cloud(spring-cloud-starter-aws-parameter-store-config)を用いて参照する</dt><dd><ul>
+<li><p>pom.xmlに以下の依存関係を追加</p>
+<blockquote>
+<div><div class="highlight-xml notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.springframework.cloud<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-cloud-starter-aws-parameter-store-config<span class="nt">&lt;/artifactId&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</pre></div>
+</td></tr></table></div>
+</div></blockquote>
+</li>
+<li><p>bootstrap.ymlをapplication.ymlと同じディレクトリに作成</p>
+<blockquote>
+<div><div class="highlight-yaml notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nt">aws</span><span class="p">:</span>
+    <span class="nt">paramstore</span><span class="p">:</span>
+        <span class="nt">default-context</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">application</span>
+        <span class="nt">enabled</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+        <span class="nt">prefix</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/config</span>
+        <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">batchdemo</span>
+        <span class="nt">profile-separator</span><span class="p">:</span> <span class="s">&#39;-&#39;</span>
+        <span class="c1">#parameter storeに接続できなくてもAPをエラーにしない</span>
+        <span class="nt">fail-fast</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+</pre></div>
+</td></tr></table></div>
+</div></blockquote>
+</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>参考サイト</dt><dd><ul class="simple">
+<li><p><a class="reference external" href="https://cloud.spring.io/spring-cloud-static/spring-cloud-aws/2.0.0.RELEASE/multi/multi__cloud_environment.html#_integrating_your_spring_cloud_application_with_the_aws_parameter_store">https://cloud.spring.io/spring-cloud-static/spring-cloud-aws/2.0.0.RELEASE/multi/multi__cloud_environment.html#_integrating_your_spring_cloud_application_with_the_aws_parameter_store</a></p></li>
+<li><p><a class="reference external" href="https://wisdom-dev.jp/?p=29">https://wisdom-dev.jp/?p=29</a></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="batch_arch.html" class="btn btn-neutral float-right" title="AWSにおけるBatch関連のサービス" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="application_gaiyo.html" class="btn btn-neutral float-left" title="アプリケーションの仕様概要" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, org.nao
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

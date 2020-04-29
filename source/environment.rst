@@ -4,7 +4,7 @@
 
 Docker Image作成
 ====
-* mavenビルド成功後にtargetフォルダ以下で実行
+* mavenビルド成功後にプロジェクト直下で実行
     docker build ./ -t batchdemo
 * Docker Imageの実行確認
     docker run batchdemo
