@@ -36,7 +36,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="AWSにおけるBatch関連のサービス" href="batch_arch.html" />
-    <link rel="prev" title="アプリケーションの仕様概要" href="application_gaiyo.html" /> 
+    <link rel="prev" title="SpringBoot起動時のprofile指定方法" href="application_profile.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -89,6 +89,7 @@
 <li class="toctree-l1"><a class="reference internal" href="environment.html">環境構築</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="application.html">構築するアプリケーション(Spring Boot)</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="application_gaiyo.html">アプリケーションの仕様概要</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application_profile.html">SpringBoot起動時のprofile指定方法</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">パラメータ管理</a></li>
 </ul>
 </li>
@@ -178,36 +179,147 @@
 <dt>Spring Cloud(spring-cloud-starter-aws-parameter-store-config)を用いて参照する</dt><dd><ul>
 <li><p>pom.xmlに以下の依存関係を追加</p>
 <blockquote>
-<div><div class="highlight-xml notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3
-4</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nt">&lt;dependency&gt;</span>
-    <span class="nt">&lt;groupId&gt;</span>org.springframework.cloud<span class="nt">&lt;/groupId&gt;</span>
-    <span class="nt">&lt;artifactId&gt;</span>spring-cloud-starter-aws-parameter-store-config<span class="nt">&lt;/artifactId&gt;</span>
-<span class="nt">&lt;/dependency&gt;</span>
+<div><div class="highlight-xml notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c">&lt;!-- バージョンは必要に応じて変更する --&gt;</span>
+<span class="nt">&lt;dependencyManagement&gt;</span>
+    <span class="nt">&lt;dependencies&gt;</span>
+    <span class="c">&lt;!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-dependencies --&gt;</span>
+        <span class="nt">&lt;dependency&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>org.springframework.cloud<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>spring-cloud-dependencies<span class="nt">&lt;/artifactId&gt;</span>
+            <span class="nt">&lt;version&gt;</span>Greenwich.SR2<span class="nt">&lt;/version&gt;</span>
+            <span class="nt">&lt;type&gt;</span>pom<span class="nt">&lt;/type&gt;</span>
+            <span class="nt">&lt;scope&gt;</span>runtime<span class="nt">&lt;/scope&gt;</span>
+        <span class="nt">&lt;/dependency&gt;</span>
+    <span class="nt">&lt;/dependencies&gt;</span>
+<span class="nt">&lt;/dependencyManagement&gt;</span>
+
+<span class="nt">&lt;dependencies&gt;</span>
+    <span class="c">&lt;!-- omitted --&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+        <span class="nt">&lt;groupId&gt;</span>org.springframework.cloud<span class="nt">&lt;/groupId&gt;</span>
+        <span class="nt">&lt;artifactId&gt;</span>spring-cloud-context<span class="nt">&lt;/artifactId&gt;</span>
+        <span class="nt">&lt;version&gt;</span>2.1.2.RELEASE<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+        <span class="nt">&lt;groupId&gt;</span>org.springframework.cloud<span class="nt">&lt;/groupId&gt;</span>
+        <span class="nt">&lt;artifactId&gt;</span>spring-cloud-starter-aws-parameter-store-config<span class="nt">&lt;/artifactId&gt;</span>
+        <span class="nt">&lt;version&gt;</span>2.1.2.RELEASE<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;/dependencies&gt;</span>
 </pre></div>
 </td></tr></table></div>
 </div></blockquote>
 </li>
 <li><p>bootstrap.ymlをapplication.ymlと同じディレクトリに作成</p>
 <blockquote>
+<div><div class="highlight-yaml notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nt">aws</span><span class="p">:</span>
+  <span class="nt">paramstore</span><span class="p">:</span>
+    <span class="c1">#プロパティを定義するコンテキストの名前,nameの定義に該当するものがない場合のデフォルト値</span>
+    <span class="nt">default-context</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">application</span>
+    <span class="c1">#パラメータストアからの情報取得有効</span>
+    <span class="nt">enabled</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+    <span class="c1">#パラメータストアから取得するパラメータ名のprefix</span>
+    <span class="nt">prefix</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/config</span>
+    <span class="c1">#パラメータ名のprefixに続くAP名</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">batchdemo</span>
+    <span class="c1">#AP名の後ろにプロファイル名を設定でき、AP名とプロファイル名の間のせパレータ</span>
+    <span class="nt">profile-separator</span><span class="p">:</span> <span class="s">&#39;-&#39;</span>
+    <span class="c1">#parameter storeに接続できなくてもAPをエラーにしない</span>
+    <span class="nt">fail-fast</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+</pre></div>
+</td></tr></table></div>
+</div></blockquote>
+</li>
+<li><p>APからの参照方法</p>
+<blockquote>
+<div><div class="highlight-java notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Value</span><span class="p">;</span>
+
+<span class="c1">//omitted</span>
+
+<span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Tasklet01</span> <span class="kd">implements</span> <span class="n">Tasklet</span> <span class="p">{</span>
+    <span class="c1">// naopolo.batch.param01という項目のパラメータを取得し、param01に設定する</span>
+    <span class="c1">// application.ymlで同一項目が規定されていた場合、パラメータストアで上書く</span>
+    <span class="nd">@Value</span><span class="p">(</span><span class="s">&quot;${naopolo.batch.param01:default}&quot;</span><span class="p">)</span>
+    <span class="n">String</span> <span class="n">param01</span><span class="p">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">RepeatStatus</span> <span class="nf">execute</span><span class="p">(</span><span class="n">StepContribution</span> <span class="n">stepContribution</span><span class="p">,</span> <span class="n">ChunkContext</span> <span class="n">chunkContext</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;tasklet1!! : &quot;</span> <span class="o">+</span> <span class="n">param01</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">RepeatStatus</span><span class="p">.</span><span class="na">FINISHED</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div></blockquote>
+</li>
+<li><p>AWS Systems Manager パラメータストアの設定方法</p>
+<blockquote>
+<div><a class="reference internal image-reference" href="_images/parameterstore.svg"><img alt="_images/parameterstore.svg" class="align-center" src="_images/parameterstore.svg" /></a>
+</div></blockquote>
+</li>
+<li><p>application.ymlで同様の項目を管理する方法</p>
+<blockquote>
 <div><div class="highlight-yaml notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
-3
-4
-5
-6
-7
-8
-9</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nt">aws</span><span class="p">:</span>
-    <span class="nt">paramstore</span><span class="p">:</span>
-        <span class="nt">default-context</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">application</span>
-        <span class="nt">enabled</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
-        <span class="nt">prefix</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/config</span>
-        <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">batchdemo</span>
-        <span class="nt">profile-separator</span><span class="p">:</span> <span class="s">&#39;-&#39;</span>
-        <span class="c1">#parameter storeに接続できなくてもAPをエラーにしない</span>
-        <span class="nt">fail-fast</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nt">naopolo</span><span class="p">:</span>
+    <span class="nt">batch</span><span class="p">:</span>
+        <span class="nt">param01</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">local execute</span>
 </pre></div>
 </td></tr></table></div>
 </div></blockquote>
@@ -242,7 +354,7 @@
         <a href="batch_arch.html" class="btn btn-neutral float-right" title="AWSにおけるBatch関連のサービス" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="application_gaiyo.html" class="btn btn-neutral float-left" title="アプリケーションの仕様概要" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="application_profile.html" class="btn btn-neutral float-left" title="SpringBoot起動時のprofile指定方法" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
