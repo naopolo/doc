@@ -82,13 +82,6 @@
                     }
                 }
 
-        * AWS Systems Manager パラメータストアの設定方法
-
-            .. image:: ../img/parameterstore.svg
-               :scale: 50%
-               :align: center
-
-
         * application.ymlで同様の項目を管理する方法
 
             .. sourcecode:: yaml
@@ -97,6 +90,18 @@
                 naopolo:
                     batch:
                         param01: local execute
+    
+    * AWS Systems Manager パラメータストアの設定
+        * 設定例        
+
+            .. image:: ../img/parameterstore.png
+               :scale: 80%
+               :align: center
+
+         * パラメータの名称付与ルール
+            
+
+
 
     * 参考サイト
         * https://cloud.spring.io/spring-cloud-static/spring-cloud-aws/2.0.0.RELEASE/multi/multi__cloud_environment.html#_integrating_your_spring_cloud_application_with_the_aws_parameter_store
