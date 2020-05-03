@@ -92,15 +92,35 @@
                         param01: local execute
     
     * AWS Systems Manager パラメータストアの設定
-        * 設定例        
+        * 名称付与ルール
+            * **[prefix]/[apname][separator][profile]/[key]**
+
+        * 各項目説明   
+            * prefix
+                aws.paramstore.prefixに対応。
+                本項目に設定した値がaws.paramstore.prefixと等しくなっている値をアプリケーションが読み込む。
+            * apname
+                aws.paramstore.nameに対応。
+                本項目に設定した値がaws.paramstore.nameと等しくなっている値をアプリケーションが読み込む。
+                もし、aws.paramstore.nameがアプリケーション側で設定されていなかった場合、
+                aws.paramstore.default-contextと本項目の値が等しい場合にアプリケーションが読み込む。
+            * separator
+                aws.paramstore.separatorに対応。
+                アプリケーション起動時に指定するプロファイルとアプリケーション名のセパレータを設定する。
+                profileを指定しない場合、本項目は省略する。
+            * profile
+                aws.paramstore.profileに対応。
+                アプリケーション起動時に指定するプロファイル名を設定する。
+                profileを指定しない場合、本項目は省略する。
+            * key
+                アプリケーションで設定するパラメータの項目名に対応。
+         * 設定例
+            上記のbootstrap.ymlやapplication.ymlのサンプルを設定した場合の、パラメータストアの設定例。
+            profile未指定の場合と、prodを指定した場合で読みかえるようにしている。
 
             .. image:: ../img/parameterstore.png
                :scale: 80%
                :align: center
-
-        * パラメータの名称付与ルール
-            
-
 
 
     * 参考サイト

@@ -87,7 +87,7 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="environment.html">環境構築</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="application.html">構築するアプリケーション(Spring Boot)</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="application.html">バッチサンプルアプリケーション</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="application_gaiyo.html">アプリケーションの仕様概要</a></li>
 <li class="toctree-l2"><a class="reference internal" href="application_profile.html">SpringBoot起動時のprofile指定方法</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">パラメータ管理</a></li>
@@ -140,7 +140,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-          <li><a href="application.html">構築するアプリケーション(Spring Boot)</a> &raquo;</li>
+          <li><a href="application.html">バッチサンプルアプリケーション</a> &raquo;</li>
         
       <li>パラメータ管理</li>
     
@@ -324,14 +324,65 @@
 </dl>
 </li>
 <li><dl>
-<dt>AWS Systems Manager パラメータストアの設定</dt><dd><ul>
-<li><p>設定例</p>
-<blockquote>
-<div><a class="reference internal image-reference" href="_images/parameterstore.png"><img alt="_images/parameterstore.png" class="align-center" src="_images/parameterstore.png" style="width: 664.0px; height: 104.0px;" /></a>
-</div></blockquote>
-</li>
-<li><p>パラメータの名称付与ルール</p></li>
+<dt>AWS Systems Manager パラメータストアの設定</dt><dd><ul class="simple">
+<li><dl class="simple">
+<dt>名称付与ルール</dt><dd><ul>
+<li><p><strong>[prefix]/[apname][separator][profile]/[key]</strong></p></li>
 </ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>各項目説明</dt><dd><ul>
+<li><dl class="simple">
+<dt>prefix</dt><dd><p>aws.paramstore.prefixに対応。
+本項目に設定した値がaws.paramstore.prefixと等しくなっている値をアプリケーションが読み込む。</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>apname</dt><dd><p>aws.paramstore.nameに対応。
+本項目に設定した値がaws.paramstore.nameと等しくなっている値をアプリケーションが読み込む。
+もし、aws.paramstore.nameがアプリケーション側で設定されていなかった場合、
+aws.paramstore.default-contextと本項目の値が等しい場合にアプリケーションが読み込む。</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>separator</dt><dd><p>aws.paramstore.separatorに対応。
+アプリケーション起動時に指定するプロファイルとアプリケーション名のセパレータを設定する。
+profileを指定しない場合、本項目は省略する。</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>profile</dt><dd><p>aws.paramstore.profileに対応。
+アプリケーション起動時に指定するプロファイル名を設定する。
+profileを指定しない場合、本項目は省略する。</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>key</dt><dd><p>アプリケーションで設定するパラメータの項目名に対応。</p>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<blockquote>
+<div><ul>
+<li><dl>
+<dt>設定例</dt><dd><p>上記のbootstrap.ymlやapplication.ymlのサンプルを設定した場合の、パラメータストアの設定例。
+profile未指定の場合と、prodを指定した場合で読みかえるようにしている。</p>
+<a class="reference internal image-reference" href="_images/parameterstore.png"><img alt="_images/parameterstore.png" class="align-center" src="_images/parameterstore.png" style="width: 664.0px; height: 104.0px;" /></a>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
 </dd>
 </dl>
 </li>
