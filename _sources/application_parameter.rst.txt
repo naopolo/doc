@@ -113,8 +113,8 @@
                 アプリケーション起動時に指定するプロファイル名を設定する。
                 profileを指定しない場合、本項目は省略する。
             * key
-                アプリケーションで設定するパラメータの項目名に対応。
-         * 設定例
+                アプリケーションで設定するパラメータの項目名に対応。 
+        * 設定例
             上記のbootstrap.ymlやapplication.ymlのサンプルを設定した場合の、パラメータストアの設定例。
             profile未指定の場合と、prodを指定した場合で読みかえるようにしている。
 
@@ -122,7 +122,39 @@
                :scale: 80%
                :align: center
 
+        * IAMポリシーの設定
+            AWS Systems Manager パラメータストアにアクセスるためのIAMポリシーを作成し、
+            そのポリシーを設定したIAMロールをアプリケーションがデプロイされるインスタンスに設定する。
+            以下、設定例(/configで始まるパラメータを取得することができるポリシー)。
+
+            .. sourcecode:: json
+                :linenos:
+
+                {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Action": [
+                                "ssm:DescribeParameters"
+                            ],
+                            "Resource": "*"
+                        },
+                        {
+                            "Effect": "Allow",
+                            "Action": [
+                                "ssm:GetParameters"
+                            ],
+                            "Resource": "arn:aws:ssm:[リージョン]:[ログインID]:parameter/config*"
+                        }
+                    ]
+                }
+        
 
     * 参考サイト
-        * https://cloud.spring.io/spring-cloud-static/spring-cloud-aws/2.0.0.RELEASE/multi/multi__cloud_environment.html#_integrating_your_spring_cloud_application_with_the_aws_parameter_store
-        * https://wisdom-dev.jp/?p=29
+        * Spring Cloud
+            https://cloud.spring.io/spring-cloud-static/spring-cloud-aws/2.0.0.RELEASE/multi/multi__cloud_environment.html#_integrating_your_spring_cloud_application_with_the_aws_parameter_store
+        * System Manager Parameter Store から設定値を取得し application.properties を上書きする
+            https://wisdom-dev.jp/?p=29
+        * Systems Manager パラメータへのアクセス制御
+            https://docs.aws.amazon.com/ja_jp/systems-manager/latest/userguide/sysman-paramstore-access.html

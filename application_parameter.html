@@ -324,16 +324,16 @@
 </dl>
 </li>
 <li><dl>
-<dt>AWS Systems Manager パラメータストアの設定</dt><dd><ul class="simple">
+<dt>AWS Systems Manager パラメータストアの設定</dt><dd><ul>
 <li><dl class="simple">
-<dt>名称付与ルール</dt><dd><ul>
+<dt>名称付与ルール</dt><dd><ul class="simple">
 <li><p><strong>[prefix]/[apname][separator][profile]/[key]</strong></p></li>
 </ul>
 </dd>
 </dl>
 </li>
 <li><dl class="simple">
-<dt>各項目説明</dt><dd><ul>
+<dt>各項目説明</dt><dd><ul class="simple">
 <li><dl class="simple">
 <dt>prefix</dt><dd><p>aws.paramstore.prefixに対応。
 本項目に設定した値がaws.paramstore.prefixと等しくなっている値をアプリケーションが読み込む。</p>
@@ -371,9 +371,6 @@ profileを指定しない場合、本項目は省略する。</p>
 </dd>
 </dl>
 </li>
-</ul>
-<blockquote>
-<div><ul>
 <li><dl>
 <dt>設定例</dt><dd><p>上記のbootstrap.ymlやapplication.ymlのサンプルを設定した場合の、パラメータストアの設定例。
 profile未指定の場合と、prodを指定した場合で読みかえるようにしている。</p>
@@ -381,15 +378,73 @@ profile未指定の場合と、prodを指定した場合で読みかえるよう
 </dd>
 </dl>
 </li>
+<li><dl>
+<dt>IAMポリシーの設定</dt><dd><p>AWS Systems Manager パラメータストアにアクセスるためのIAMポリシーを作成し、
+そのポリシーを設定したIAMロールをアプリケーションがデプロイされるインスタンスに設定する。
+以下、設定例(/configで始まるパラメータを取得することができるポリシー)。</p>
+<div class="highlight-json notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;Version&quot;</span><span class="p">:</span> <span class="s2">&quot;2012-10-17&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;Statement&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;Effect&quot;</span><span class="p">:</span> <span class="s2">&quot;Allow&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;Action&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&quot;ssm:DescribeParameters&quot;</span>
+            <span class="p">],</span>
+            <span class="nt">&quot;Resource&quot;</span><span class="p">:</span> <span class="s2">&quot;*&quot;</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;Effect&quot;</span><span class="p">:</span> <span class="s2">&quot;Allow&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;Action&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&quot;ssm:GetParameters&quot;</span>
+            <span class="p">],</span>
+            <span class="nt">&quot;Resource&quot;</span><span class="p">:</span> <span class="s2">&quot;arn:aws:ssm:[リージョン]:[ログインID]:parameter/config*&quot;</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</dd>
+</dl>
+</li>
 </ul>
-</div></blockquote>
 </dd>
 </dl>
 </li>
 <li><dl class="simple">
 <dt>参考サイト</dt><dd><ul class="simple">
-<li><p><a class="reference external" href="https://cloud.spring.io/spring-cloud-static/spring-cloud-aws/2.0.0.RELEASE/multi/multi__cloud_environment.html#_integrating_your_spring_cloud_application_with_the_aws_parameter_store">https://cloud.spring.io/spring-cloud-static/spring-cloud-aws/2.0.0.RELEASE/multi/multi__cloud_environment.html#_integrating_your_spring_cloud_application_with_the_aws_parameter_store</a></p></li>
-<li><p><a class="reference external" href="https://wisdom-dev.jp/?p=29">https://wisdom-dev.jp/?p=29</a></p></li>
+<li><dl class="simple">
+<dt>Spring Cloud</dt><dd><p><a class="reference external" href="https://cloud.spring.io/spring-cloud-static/spring-cloud-aws/2.0.0.RELEASE/multi/multi__cloud_environment.html#_integrating_your_spring_cloud_application_with_the_aws_parameter_store">https://cloud.spring.io/spring-cloud-static/spring-cloud-aws/2.0.0.RELEASE/multi/multi__cloud_environment.html#_integrating_your_spring_cloud_application_with_the_aws_parameter_store</a></p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>System Manager Parameter Store から設定値を取得し application.properties を上書きする</dt><dd><p><a class="reference external" href="https://wisdom-dev.jp/?p=29">https://wisdom-dev.jp/?p=29</a></p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Systems Manager パラメータへのアクセス制御</dt><dd><p><a class="reference external" href="https://docs.aws.amazon.com/ja_jp/systems-manager/latest/userguide/sysman-paramstore-access.html">https://docs.aws.amazon.com/ja_jp/systems-manager/latest/userguide/sysman-paramstore-access.html</a></p>
+</dd>
+</dl>
+</li>
 </ul>
 </dd>
 </dl>
