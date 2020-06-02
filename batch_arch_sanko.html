@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>AWSにおけるBatch関連のサービス &mdash; クラウドバッチ処理パターン 0.1-SNAPSHOT documentation</title>
+  <title>参考情報 &mdash; クラウドバッチ処理パターン 0.1-SNAPSHOT documentation</title>
   
 
   
@@ -35,8 +35,8 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="AWS Batch" href="batch_arch_awsbatch.html" />
-    <link rel="prev" title="パラメータ管理" href="application_parameter.html" /> 
+    <link rel="next" title="クラウドバッチ処理パターン" href="batch_pattern.html" />
+    <link rel="prev" title="AWS Lambda" href="batch_arch_awslamda.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -88,10 +88,10 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="environment.html">環境構築</a></li>
 <li class="toctree-l1"><a class="reference internal" href="application.html">バッチサンプルアプリケーション</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">AWSにおけるBatch関連のサービス</a><ul>
+<li class="toctree-l1 current"><a class="reference internal" href="batch_arch.html">AWSにおけるBatch関連のサービス</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="batch_arch_awsbatch.html">AWS Batch</a></li>
 <li class="toctree-l2"><a class="reference internal" href="batch_arch_awslamda.html">AWS Lambda</a></li>
-<li class="toctree-l2"><a class="reference internal" href="batch_arch_sanko.html">参考情報</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">参考情報</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="batch_pattern.html">クラウドバッチ処理パターン</a></li>
@@ -140,13 +140,15 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>AWSにおけるBatch関連のサービス</li>
+          <li><a href="batch_arch.html">AWSにおけるBatch関連のサービス</a> &raquo;</li>
+        
+      <li>参考情報</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/batch_arch.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/batch_arch_sanko.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -159,27 +161,38 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="awsbatch">
-<h1>AWSにおけるBatch関連のサービス<a class="headerlink" href="#awsbatch" title="Permalink to this headline">¶</a></h1>
-<p>Contents:</p>
-<div class="toctree-wrapper compound">
-<p class="caption"><span class="caption-text">Contents:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="batch_arch_awsbatch.html">AWS Batch</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="batch_arch_awsbatch.html#id1">AWS Batchの環境構成図</a></li>
-<li class="toctree-l2"><a class="reference internal" href="batch_arch_awsbatch.html#id2">AWS Batchの利用が適しているパタ－ン</a></li>
-<li class="toctree-l2"><a class="reference internal" href="batch_arch_awsbatch.html#id3">ジョブの起動方法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="batch_arch_awsbatch.html#id4">AWS Batchを利用できる条件</a></li>
+  <div class="section" id="id1">
+<h1>参考情報<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><dl class="simple">
+<dt>AWS Batch Black Belt</dt><dd><ul>
+<li><p><a class="reference external" href="https://www.slideshare.net/AmazonWebServicesJapan/20190911-aws-black-belt-online-seminar-aws-batch">https://www.slideshare.net/AmazonWebServicesJapan/20190911-aws-black-belt-online-seminar-aws-batch</a></p></li>
 </ul>
+</dd>
+</dl>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="batch_arch_awslamda.html">AWS Lambda</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="batch_arch_awslamda.html#lambda">Lambdaの利用が適しているパターン</a></li>
-<li class="toctree-l2"><a class="reference internal" href="batch_arch_awslamda.html#lambdaap">Lambdaで動作するAP</a></li>
+<li><dl class="simple">
+<dt>AWS Lambda Black Belt</dt><dd><ul>
+<li><p><a class="reference external" href="https://www.slideshare.net/AmazonWebServicesJapan/20190402-aws-black-belt-online-seminar-lets-dive-deep-into-aws-lambda-part1-part2/">https://www.slideshare.net/AmazonWebServicesJapan/20190402-aws-black-belt-online-seminar-lets-dive-deep-into-aws-lambda-part1-part2/</a></p></li>
 </ul>
+</dd>
+</dl>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="batch_arch_sanko.html">参考情報</a></li>
+<li><dl class="simple">
+<dt>AWS Step Functions Black Belt</dt><dd><ul>
+<li><p><a class="reference external" href="https://www.slideshare.net/AmazonWebServicesJapan/20190522-aws-black-belt-online-seminar-aws-step-functions">https://www.slideshare.net/AmazonWebServicesJapan/20190522-aws-black-belt-online-seminar-aws-step-functions</a></p></li>
 </ul>
-</div>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>各サービスの比較</dt><dd><ul>
+<li><p><a class="reference external" href="https://techblog.timers-inc.com/entry/2019/08/06/aws-batch-lambda-ecs-comparison">https://techblog.timers-inc.com/entry/2019/08/06/aws-batch-lambda-ecs-comparison</a></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
 </div>
 
 
@@ -190,10 +203,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="batch_arch_awsbatch.html" class="btn btn-neutral float-right" title="AWS Batch" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="batch_pattern.html" class="btn btn-neutral float-right" title="クラウドバッチ処理パターン" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="application_parameter.html" class="btn btn-neutral float-left" title="パラメータ管理" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="batch_arch_awslamda.html" class="btn btn-neutral float-left" title="AWS Lambda" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
