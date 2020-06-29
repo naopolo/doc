@@ -19,6 +19,8 @@ AWS Batchは以下のうち、 **「大規模計算におけるバッチ処理�
 ----
 * Management Console(AWS BatchのGUI)からの起動
 * Cloud Watch Eventによる定期実行
+* Lambda関数からの呼出
+  * S3のファイル行進などをトリガーにLambda関数を起動し、関数内でJobキューに登録する
 
 AWS Batchを利用できる条件
 ----
