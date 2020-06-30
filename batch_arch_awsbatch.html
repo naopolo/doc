@@ -92,8 +92,9 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">AWS Batch</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id1">AWS Batchの環境構成図</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id2">AWS Batchの利用が適しているパタ－ン</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id3">ジョブの起動方法</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id4">AWS Batchを利用できる条件</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">AWS Batchより他のサービス利用が適しているパターン</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">ジョブの起動方法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">AWS Batchを利用できる条件</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="batch_arch_awslamda.html">AWS Lambda</a></li>
@@ -175,29 +176,100 @@
 </div>
 <div class="section" id="id2">
 <h2>AWS Batchの利用が適しているパタ－ン<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<p>AWS Batchは以下のうち、 <strong>「大規模計算におけるバッチ処理」</strong> に適している。</p>
 <ul class="simple">
 <li><dl class="simple">
-<dt>定型業務におけるバッチ処理</dt><dd><p>あらかじめジョブの起動や順序を定義しておいて、ジョブを実行・管理する。</p>
+<dt>複数ジョブのシーケンシャル実行</dt><dd><ul>
+<li><p>ジョブの実行順序が固定されており、順番通りに実行していくジョブ。</p></li>
+</ul>
 </dd>
 </dl>
 </li>
 <li><dl class="simple">
-<dt>大規模計算におけるバッチ処理</dt><dd><p>大規模科学計算、機械学習、ゲノム分析等のアドホックな計算。</p>
+<dt>特定の前処理ジョブ完了後に一括して複数のジョブを実行する</dt><dd><ul>
+<li></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>複数のジョブがすべて完了後に後処理ジョブを実行する</dt><dd><ul>
+<li></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>大規模計算におけるバッチ処理</dt><dd><ul>
+<li><p>大規模科学計算、機械学習、ゲノム分析等のアドホックな計算。</p></li>
+<li><p>機械学習用途でモデル設計から推論エンドポイントまで一気通貫で行いたい場合はAmazon SageMakerの利用を検討</p></li>
+</ul>
 </dd>
 </dl>
 </li>
 </ul>
 </div>
 <div class="section" id="id3">
-<h2>ジョブの起動方法<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<h2>AWS Batchより他のサービス利用が適しているパターン<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>Management Console(AWS BatchのGUI)からの起動</p></li>
-<li><p>Cloud Watch Eventによる定期実行</p></li>
+<li><dl class="simple">
+<dt>現行のバッチAPが存在し、そのジョブ管理機能（スケジューラ）の移行が難しい場合</dt><dd><ul>
+<li><p>AWS ParallelCluster(AWS がサポートするオープンソースのクラスター管理ツール)の利用を検討</p></li>
+<li><p><a class="reference external" href="https://docs.aws.amazon.com/ja_jp/parallelcluster/latest/ug/aws-parallelcluster-ug.pdf">https://docs.aws.amazon.com/ja_jp/parallelcluster/latest/ug/aws-parallelcluster-ug.pdf</a></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>1つのジョブが短時間で完了する軽い処理の場合</dt><dd><ul>
+<li><p>LambdaやStepFunctionの利用を検討する</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>コンテナイメージが用意できないアプリケーション</dt><dd><ul>
+<li><p>EC2上でのAP起動を検討する。</p></li>
+</ul>
+</dd>
+</dl>
+</li>
 </ul>
 </div>
 <div class="section" id="id4">
-<h2>AWS Batchを利用できる条件<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<h2>ジョブの起動方法<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><dl class="simple">
+<dt>Management Console</dt><dd><ul>
+<li><p>AWS BatchのGUIからの起動</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>AWS CLI</dt><dd><ul>
+<li><p><a class="reference external" href="https://docs.aws.amazon.com/cli/latest/reference/batch/index.html">https://docs.aws.amazon.com/cli/latest/reference/batch/index.html</a></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Cloud Watch Event</dt><dd><ul>
+<li><p>スケジュールされた通りに定期実行</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Lambda関数</dt><dd><ul>
+<li><p>S3のファイル行進などをトリガーにLambda関数を起動し、関数内でJobキューに登録する</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="id5">
+<h2>AWS Batchを利用できる条件<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Dockerコンテナイメージを用意する必要がある。</p></li>
 </ul>
